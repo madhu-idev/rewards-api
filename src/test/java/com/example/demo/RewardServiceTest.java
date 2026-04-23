@@ -25,6 +25,6 @@ public class RewardServiceTest {
     @Test
     void testInvalidMonths() {
         assertThrows(IllegalArgumentException.class,
-                () -> service.getRewards("1", 0));
+                () -> service.getRewards("1", 0)) ;
     }
 }
