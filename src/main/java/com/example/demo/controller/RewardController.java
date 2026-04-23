@@ -16,7 +16,7 @@ public class RewardController {
 
     @GetMapping("/rewards")
     public RewardResponse getRewards(
-            @RequestParam String  customerId,
+            @RequestParam String customerId,
             @RequestParam int months) {
 
         return rewardService.getRewards(customerId, months);
