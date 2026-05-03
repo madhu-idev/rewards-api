@@ -10,10 +10,4 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleBadRequest(Exception ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleGeneral(Exception ex) {
-        return ResponseEntity.internalServerError().body("Something went wrong");
-    }
-
 }

@@ -3,7 +3,6 @@ package com.charter.rewardPoints.service;
 import com.charter.rewardPoints.model.*;
 import com.charter.rewardPoints.repository.TransactionRepository;
 import com.charter.rewardPoints.util.RewardUtils;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -12,10 +11,13 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@RequiredArgsConstructor
 public class RewardService {
 
     private final TransactionRepository repository;
+
+    public RewardService(TransactionRepository repository) {
+        this.repository = repository;
+    }
 
     public RewardResponse getRewards(String customerId,
                                      LocalDate startDate,
@@ -29,9 +31,6 @@ public class RewardService {
 
         if (startDate.isAfter(endDate))
             throw new IllegalArgumentException("Start date must be before end date");
-
-        if (endDate.isAfter(LocalDate.now()))
-            throw new IllegalArgumentException("Future dates not allowed");
 
         List<Transaction> transactions = repository.getAllTransactions();
 
