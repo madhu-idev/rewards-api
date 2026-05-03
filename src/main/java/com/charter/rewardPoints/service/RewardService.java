@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -39,7 +41,9 @@ public class RewardService {
         for (Transaction t : transactions) {
 
             if (!t.getCustomerId().equals(customerId)) continue;
-            if (t.getDate().isBefore(startDate) || t.getDate().isAfter(endDate)) continue;
+
+            if (t.getDate().isBefore(startDate) ||
+                t.getDate().isAfter(endDate)) continue;
 
             int points = RewardUtils.calculatePoints(t.getAmount());
             String month = t.getDate().getMonth().toString();
