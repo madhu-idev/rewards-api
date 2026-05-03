@@ -1,4 +1,4 @@
-package com.example.demo.exception;
+package com.charter.rewardPoints.exception;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +13,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleGeneral(Exception ex) {
-        return ResponseEntity.internalServerError().body("Something went wrong!");
+        return ResponseEntity.internalServerError().body("Something went wrong");
     }
 }
