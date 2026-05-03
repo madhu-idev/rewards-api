@@ -15,4 +15,5 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleGeneral(Exception ex) {
         return ResponseEntity.internalServerError().body("Something went wrong");
     }
+
 }
