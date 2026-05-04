@@ -46,7 +46,7 @@ mvn spring-boot:run
 ### Application URL
 
 
-http://localhost:8080
+https://jubilant-system-969qwppj69qrfggr-8080.app.github.dev
 
 
 ---
@@ -74,8 +74,7 @@ GET /api/rewards
 ###  Sample Request
 
 
-http://localhost:8080/api/rewards?customerId=1&startDate=2026-01-01&endDate=2026-03-31
-
+https://jubilant-system-969qwppj69qrfggr-8080.app.github.dev/api/rewards?customerId=1&startDate=2024-01-01&endDate=2026-12-31
 
 ---
 
@@ -90,7 +89,7 @@ http://localhost:8080/api/rewards?customerId=1&startDate=2026-01-01&endDate=2026
   },
   "totalPoints": 210
 }
- Reward Calculation Logic
+ # Reward Calculation Logic
 No points for amount ≤ $50
 1 point for every dollar spent between $50–$100
 2 points for every dollar spent above $100
