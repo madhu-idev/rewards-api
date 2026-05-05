@@ -4,18 +4,25 @@ import java.math.BigDecimal;
 
 public class RewardUtils {
 
-    public static int calculatePoints(BigDecimal amount) {
+public static int calculatePoints(BigDecimal amount) {
 
-        int points = 0;
-        double amt = amount.doubleValue();
+    int points = 0;
 
-        if (amt > 100) {
-            points += (amt - 100) * 2;
-            points += 50;
-        } else if (amt > 50) {
-            points += (amt - 50);
-        }
+    BigDecimal fifty = new BigDecimal("50");
+    BigDecimal hundred = new BigDecimal("100");
 
-        return points;
+    if (amount.compareTo(hundred) > 0) {
+        
+        BigDecimal overHundred = amount.subtract(hundred);
+        points += overHundred.multiply(new BigDecimal("2")).intValue();
+        points += 50;
+
+    } else if (amount.compareTo(fifty) > 0) {
+        
+        BigDecimal overFifty = amount.subtract(fifty);
+        points += overFifty.intValue();
     }
+
+    return points;
+}
 }
