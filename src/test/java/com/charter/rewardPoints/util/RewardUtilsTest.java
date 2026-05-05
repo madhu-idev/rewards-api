@@ -33,6 +33,11 @@ public class RewardUtilsTest {
     }
 
     @Test
+    void testBigDecimalPrecision() {
+        assertEquals(90,RewardUtils.calculatePoints(new BigDecimal("120")));
+    }
+    
+    @Test
     void testHighAmount() {
         assertEquals(250, RewardUtils.calculatePoints(new BigDecimal("200")));
     }
