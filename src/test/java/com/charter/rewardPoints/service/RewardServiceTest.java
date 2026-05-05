@@ -56,9 +56,25 @@ public class RewardServiceTest {
 
     @Test
     void testFutureDates() {
-        assertDoesNotThrow(() ->
+        assertThrows(IllegalArgumentException.class, () ->
                 service.getRewards("1",
                         LocalDate.now().minusDays(10),
                         LocalDate.now().plusDays(10)));
+    }
+
+    @Test
+    void testFutureDateValidation() {
+        assertThrows(IllegalArgumentException.class, () ->
+            service.getRewards("1",
+                    LocalDate.now(),
+                    LocalDate.now().plusDays(5)));
+    }
+
+    @Test
+    void testMultipleCustomersData() {
+        assertNotNull(service.getRewards(
+            "5",
+            LocalDate.now().minusMonths(3),
+            LocalDate.now()));
     }
 }

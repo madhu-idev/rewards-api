@@ -31,6 +31,12 @@ public class RewardService {
 
         if (startDate.isAfter(endDate))
             throw new IllegalArgumentException("Start date must be before end date");
+        
+        LocalDate today = LocalDate.now();
+
+        if (startDate.isAfter(today) || endDate.isAfter(today)) {
+            throw new IllegalArgumentException("Dates cannot be in the future");
+        }
 
         List<Transaction> transactions = repository.getAllTransactions();
 
