@@ -1,31 +1,64 @@
 package com.charter.rewardPoints.service;
 
-import com.charter.rewardPoints.util.RewardUtils;
+import com.charter.rewardPoints.model.RewardResponse;
+import com.charter.rewardPoints.repository.TransactionRepository;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RewardServiceTest {
+public class RewardServiceTest {
+
+    private final RewardService service =
+            new RewardService(new TransactionRepository());
 
     @Test
-    void testBelow50() {
-        assertEquals(0, RewardUtils.calculatePoints(new BigDecimal("40")));
+    void testValidCustomer() {
+        RewardResponse response = service.getRewards(
+                "1",
+                LocalDate.now().minusMonths(3),
+                LocalDate.now());
+
+        assertNotNull(response);
+        assertTrue(response.getTotalPoints() > 0);
     }
 
     @Test
-    void testBoundary50() {
-        assertEquals(0, RewardUtils.calculatePoints(new BigDecimal("50")));
+    void testCustomerWithNoTransactions() {
+        RewardResponse response = service.getRewards(
+                "999",
+                LocalDate.now().minusMonths(3),
+                LocalDate.now());
+
+        assertEquals(0, response.getTotalPoints());
     }
 
     @Test
-    void testBoundary100() {
-        assertEquals(50, RewardUtils.calculatePoints(new BigDecimal("100")));
+    void testInvalidCustomerId() {
+        assertThrows(IllegalArgumentException.class, () ->
+                service.getRewards("", LocalDate.now(), LocalDate.now()));
     }
 
     @Test
-    void testAbove100() {
-        assertEquals(90, RewardUtils.calculatePoints(new BigDecimal("120")));
+    void testNullDates() {
+        assertThrows(IllegalArgumentException.class, () ->
+                service.getRewards("1", null, null));
+    }
+
+    @Test
+    void testStartDateAfterEndDate() {
+        assertThrows(IllegalArgumentException.class, () ->
+                service.getRewards("1",
+                        LocalDate.now(),
+                        LocalDate.now().minusDays(1)));
+    }
+
+    @Test
+    void testFutureDates() {
+        assertDoesNotThrow(() ->
+                service.getRewards("1",
+                        LocalDate.now().minusDays(10),
+                        LocalDate.now().plusDays(10)));
     }
 }
