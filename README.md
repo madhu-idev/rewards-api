@@ -37,8 +37,7 @@ This project demonstrates clean architecture, proper validation, testing, and re
 * Java 8
 * Spring Boot
 * Maven
-* Lombok
-* JUnit 5
+* JUnit
 * MockMvc
 
 ---
